@@ -92,6 +92,21 @@ public class SampleActionTest {
 	}
 
 	@Test
+	public void testCheckError5() {
+		HttpServletRequest request = createMock(HttpServletRequest.class);
+		SampleAction action = new SampleAction();
+
+		expect(request.getParameter("FirstName")).andReturn("firstName");
+		expect(request.getParameter("LastName")).andReturn("");
+
+		replay(request);
+		boolean result = action.checkParameter(request);
+		verify(request);
+
+		assertEquals(true, result);
+	}
+
+	@Test
 	public void testExecuteNormal() {
 		SampleAction action = new SampleAction("firstName", "lastName");
 		HttpServletRequest request = createMock(HttpServletRequest.class);
